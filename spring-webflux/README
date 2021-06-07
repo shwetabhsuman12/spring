@@ -1,3 +1,4 @@
+# Spring Webflux-Event looping non blocking code- Reactive programming H1
 This is sample code which works on event looping non blocking mechanism . It is using spring webflux . Spring uses Mono and Flux as its variant of completablefuture to generate the non blocking mechanism.It contains the context of each request and delegates the request for IO and other operations.Meanwhile servlet thread is left  to process another request. Once the IO operation of the first thread is done, it will send the response back to existing connection with the requesting consumer.
 
 For this to work  reactive programming should be done at each segment.For this to happen I am using Mono /Flux in all the segments - Controller,Service,DAO and using spring provided redis reactive jars.
