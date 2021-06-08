@@ -37,4 +37,18 @@ public class HoldAndProcessMessage implements IHoldAndProcessMessage{
 		
 	}
 	
+	@Override
+	public void saveGreetDetailObject(HelloWorld hello) throws InterruptedException {	
+		activityRepository.saveObject(hello);
+		
+	}
+	
+	@Override
+	public Mono<HelloWorld> getGreetDetailObj(String name) throws InterruptedException {
+		// TODO Auto-generated method stub
+		Mono<HelloWorld> hello=activityRepository.getHelloWorldByName(name);
+    
+		return hello;
+	}
+	
 }

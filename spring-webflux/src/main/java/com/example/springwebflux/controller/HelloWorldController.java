@@ -59,6 +59,35 @@ public class HelloWorldController {
 		}
 	}
 	
-
+	@RequestMapping(value="/createObject",method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void createObject(@RequestBody HelloWorld hellowrld)
+	{
+		try {
+			System.out.println("Record for " + hellowrld.getName());
+			holdProcessMsg.saveGreetDetailObject(hellowrld);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="obj/{name}")
+	public ResponseEntity<Mono<HelloWorld>> greetIndividualObj(@PathVariable("name") String name)
+	{
+		System.out.println("Processing for :" + name);
+		Mono<HelloWorld> greetIndividual=null;
+		try {
+			greetIndividual = holdProcessMsg.getGreetDetailObj(name);
+		
+			System.out.println("Returning the resp for "+ name);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("finally Returning the resp for "+ name);
+		return new ResponseEntity<Mono<HelloWorld>>(greetIndividual,HttpStatus.OK);
+		
+	}
 
 }

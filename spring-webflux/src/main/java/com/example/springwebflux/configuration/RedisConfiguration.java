@@ -32,7 +32,16 @@ public class RedisConfiguration {
 	 * conn.getPoolConfig().setMaxIdle(30); conn.getPoolConfig().setMinIdle(10);
 	 * //conn.setHostName("localhost"); //conn.setPort(6379); return conn; }
 	 */
+    @Primary
+	@Bean
+	ReactiveRedisOperations<String,HelloWorld> reactiveRedisOperationsObject(ReactiveRedisConnectionFactory factory){
+       Jackson2JsonRedisSerializer<HelloWorld> serializer= new Jackson2JsonRedisSerializer<>(HelloWorld.class);
 
+	    RedisSerializationContext.RedisSerializationContextBuilder<String, HelloWorld> builder =RedisSerializationContext.newSerializationContext(new StringRedisSerializer());
+
+	    RedisSerializationContext<String, HelloWorld> context = builder.value(serializer).build();
+		return new ReactiveRedisTemplate(factory,context);
+	}
 	
     @Primary
 	@Bean
